@@ -136,46 +136,44 @@ function handleInput(event) {
 let touchStartX;
 let touchStartY;
 
-// Add touch event listeners
+// Add touch event listeners to the canvas only
 canvas.addEventListener("touchstart", handleTouchStart);
 canvas.addEventListener("touchmove", handleTouchMove);
 
-// ... (existing code)
-
 // Define functions to handle touch events
 function handleTouchStart(event) {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+  event.preventDefault(); // Prevent the default behavior
+
+  if (!touchStartX || !touchStartY) {
+    return;
   }
-  
-  function handleTouchMove(event) {
-    event.preventDefault(); // Prevent the default behavior globally
-  
-    if (!touchStartX || !touchStartY) {
-      return;
-    }
-  
-    let touchEndX = event.touches[0].clientX;
-    let touchEndY = event.touches[0].clientY;
-  
-    let deltaX = touchEndX - touchStartX;
-    let deltaY = touchEndY - touchStartY;
-  
-    // Determine the swipe direction
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      // Horizontal swipe
-      snakeDX = deltaX > 0 ? gridSize : -gridSize;
-      snakeDY = 0;
-    } else {
-      // Vertical swipe
-      snakeDY = deltaY > 0 ? gridSize : -gridSize;
-      snakeDX = 0;
-    }
-  
-    // Reset touch coordinates
-    touchStartX = null;
-    touchStartY = null;
-  }  
+
+  let touchEndX = event.touches[0].clientX;
+  let touchEndY = event.touches[0].clientY;
+
+  let deltaX = touchEndX - touchStartX;
+  let deltaY = touchEndY - touchStartY;
+
+  // Determine the swipe direction
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // Horizontal swipe
+    snakeDX = deltaX > 0 ? gridSize : -gridSize;
+    snakeDY = 0;
+  } else {
+    // Vertical swipe
+    snakeDY = deltaY > 0 ? gridSize : -gridSize;
+    snakeDX = 0;
+  }
+
+  // Reset touch coordinates
+  touchStartX = null;
+  touchStartY = null;
+}
 
 // Add an event listener for the keydown event
 document.addEventListener("keydown", handleInput);
