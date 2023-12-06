@@ -130,12 +130,6 @@ function handleInput(event) {
   }
 }
 
-// Add an event listener for the keydown event
-document.addEventListener("keydown", handleInput);
-
-// Call the update function every snakeSpeed milliseconds
-setInterval(update, snakeSpeed);
-
 // ... (existing code)
 
 // Define variables to store touch coordinates
@@ -179,4 +173,12 @@ function handleTouchMove(event) {
   touchStartY = null;
 }
 
-// ... (existing code)
+// Add an event listener for the keydown event
+document.addEventListener("keydown", handleInput);
+
+// Add an event listener for touch events on the document
+document.addEventListener("touchstart", handleTouchStart);
+document.addEventListener("touchmove", handleTouchMove);
+
+// Call the update function every snakeSpeed milliseconds
+setInterval(update, snakeSpeed);
