@@ -149,7 +149,7 @@ function handleTouchStart(event) {
   }
   
   function handleTouchMove(event) {
-    event.preventDefault(); // Prevent the default behavior
+    event.preventDefault(); // Prevent the default behavior globally
   
     if (!touchStartX || !touchStartY) {
       return;
